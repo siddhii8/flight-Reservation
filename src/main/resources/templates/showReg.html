@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+</head>
+<body>
+<h2>Create Account Here</h2>
+<form th:action="@{/saveReg}" th:object="${user}" method="post">
+        <pre>
+            First name <input type="text" th:field="*{firstName}" th:errorclass="${#fields.hasErrors('firstName')} ? 'error'"/>
+            Last name <input type="text" th:field="*{lastName}" th:errorclass="${#fields.hasErrors('lastName')} ? 'error'"/>
+            Email <input type="text" th:field="*{email}" th:errorclass="${#fields.hasErrors('email')} ? 'error'"/>
+            Password <input type="password" th:field="*{password}" th:errorclass="${#fields.hasErrors('password')} ? 'error'"/>
+            <input type="submit" value="Save"/>
+        </pre>
+    <div th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></div>
+    <div th:if="${#fields.hasErrors()}">
+        <p>There are errors in the form:</p>
+        <ul>
+            <li th:each="err : ${#fields.errors()}">
+                <span th:text="${err}"></span>
+            </li>
+        </ul>
+    </div>
+</form>
+</body>
+</html>
